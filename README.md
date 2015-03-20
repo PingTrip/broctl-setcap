@@ -12,7 +12,8 @@ script_path=/opt/bro/bin/bro_setcap.sh
 ```
 ## On each Node
 Edit the sudoers file (use `visudo`) and add the following line (if you're running Bro as a different user adjust as necessary):
-    bro	ALL=NOPASSWD: /opt/bro/bin/bro_setcap.sh
+
+`bro	ALL=NOPASSWD: /opt/bro/bin/bro_setcap.sh`
 
 ## Test it Out
     [BroControl] > install
