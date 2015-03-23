@@ -8,7 +8,7 @@ Broctl plugin for automatically executing 'setcap' on each node after an install
 4. Add the following lines to broctl.cfg (adjust accordingly for your installation)
 ```
 setcap.enabled=1
-script_path=/opt/bro/bin/bro_setcap.sh
+setcap.script_path=/opt/bro/bin/bro_setcap.sh
 ```
 ## On each Node
 Edit the sudoers file (use `visudo`) and add the following line (if you're running Bro as a different user adjust as necessary):
