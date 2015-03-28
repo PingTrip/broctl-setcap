@@ -4,7 +4,6 @@
 #
 # Options:
 #    The plugin is off by default. To enable it, add "setcap.enabled=1" to broctl.cfg.
-#    Set the full path of the 'bro_setcap.sh' script modify "setcap.script_path' in broctl.cfg
 #
 # Dave Crawford (@pingtrip)
 
@@ -31,18 +30,17 @@ class setcap(BroControl.plugin.Plugin):
 
     def options(self):
         return [("enabled", "string", "0", "Set to enable plugin"),
-        ("script_path", "string", "/opt/bro/bin/bro_setcap.sh", "Full path to the bro_setcap.sh script")]
+        ("command", "string", "", "Full command to execute on each node.")]
 
     def cmd_install_post(self):
         self.message("setcap plugin: executing setcap on each node:")
         uniq_nodes = {}
-
+				 
         for n in self.nodes():
             if n.type == 'standalone' or n.type == 'worker':
                 uniq_nodes[n.host] = n
         
-        cmd = "sudo {0}".format(self.getOption('script_path'))
-        cmds = [(n, cmd) for n in uniq_nodes.values()]
+        cmds = [(n, self.getOption('command')) for n in uniq_nodes.values()]
 
         for (n, success, output) in self.executeParallel(cmds):
             self.message("{0} - Executing setcap: {1}".format(n.host, 'SUCCESS' if success else 'FAIL'))

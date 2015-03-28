@@ -2,18 +2,16 @@
 Broctl plugin for automatically executing 'setcap' on each node after an install
 
 ## On the Bro Manager
-1. Drop the bro_setcap.sh script in Bro's bin directory for your installation.
-2. Set execute permissions: `chmod +x bro_setcap.sh`
-3. Drop the setcap.py plugin into /opt/bro/lib/broctl/plugins/
-4. Add the following lines to broctl.cfg (adjust accordingly for your installation)
+1. Drop the setcap.py plugin into /opt/bro/lib/broctl/plugins/
+2. Add the following lines to broctl.cfg (adjust accordingly for your installation)
 ```
 setcap.enabled=1
-setcap.script_path=/opt/bro/bin/bro_setcap.sh
+setcap.command=sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/bro && sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/capstats
 ```
 ## On each Node
-Edit the sudoers file (use `visudo`) and add the following line (if you're running Bro as a different user adjust as necessary):
+Edit the sudoers file (use `visudo`) and add the following line to allow sudo execution (w/o password) of setcap (if you're running Bro as a different user adjust as necessary as well):
 
-`bro	ALL=NOPASSWD: /opt/bro/bin/bro_setcap.sh`
+`bro	ALL=NOPASSWD: /sbin/setcap`
 
 ## Test it Out
     [BroControl] > install
