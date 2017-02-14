@@ -43,4 +43,4 @@ class setcap(BroControl.plugin.Plugin):
         cmds = [(n, self.getOption('command')) for n in uniq_nodes.values()]
 
         for (n, success, output) in self.executeParallel(cmds):
-            self.message("{0} - Executing setcap: {1}".format(n.host, 'SUCCESS' if success else 'FAIL'))
+	    self.message("{0} - Executing setcap: {1}".format(n.host, 'SUCCESS' if success else 'FAIL: ' + output[0]))
