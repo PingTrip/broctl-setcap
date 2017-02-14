@@ -9,9 +9,12 @@ setcap.enabled=1
 setcap.command=sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/bro && sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/capstats
 ```
 ## On each Node
-Edit the sudoers file (use `visudo`) and add the following line to allow sudo execution (w/o password) of setcap (if you're running Bro as a different user adjust as necessary as well):
+Edit the sudoers file (use `visudo`) and add the following line to allow sudo execution (w/o password or tty) of setcap (if you're running Bro as a different user adjust as necessary as well):
 
-`bro	ALL=NOPASSWD: /sbin/setcap`
+```
+bro	ALL=NOPASSWD: /sbin/setcap
+Defaults!/sbin/setcap !requiretty
+```
 
 ## Test it Out
     [BroControl] > install
