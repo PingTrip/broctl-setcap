@@ -6,13 +6,13 @@ Zeekctl plugin for automatically executing 'setcap' on each node after an instal
 2. Add the following lines to zeekctl.cfg (adjust accordingly for your installation)
 ```
 setcap.enabled=1
-setcap.command=sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/zeek-wrapper && sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/capstats
+setcap.command=sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/zeek && sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/bro/bin/capstats
 ```
 ## On each Node
 Edit the sudoers file (use `visudo`) and add the following lines to allow sudo execution (w/o password or tty) of setcap. If you're running Zeek as a different user, or from a different directory, adjust as necessary:
 
 ```
-Cmnd_Alias ZEEK_SETCAP = /sbin/setcap cap_net_raw\,cap_net_admin=eip /opt/bro/bin/zeek-wrapper
+Cmnd_Alias ZEEK_SETCAP = /sbin/setcap cap_net_raw\,cap_net_admin=eip /opt/bro/bin/zeek
 Cmnd_Alias CAPSTATS_SETCAP = /sbin/setcap cap_net_raw\,cap_net_admin=eip /opt/bro/bin/capstats
 zeek ALL=NOPASSWD: ZEEK_SETCAP, CAPSTATS_SETCAP
 Defaults!/sbin/setcap !requiretty
