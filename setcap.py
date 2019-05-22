@@ -5,8 +5,7 @@
 # Options:
 #    The plugin is off by default. To enable it, add "setcap.enabled=1" to zeekctl.cfg.
 #
-# Orig: Dave Crawford (@pingtrip)
-# Updated: John Bradley (@userjack6880)
+# Dave Crawford (@pingtrip)
 
 import ZeekControl.plugin
 
