@@ -1,15 +1,15 @@
-# setcap plugin for Broctl
+# setcap plugin for Zeekctl
 #
 # This plugin will execute 'setcap' on each node after an install
 #
 # Options:
-#    The plugin is off by default. To enable it, add "setcap.enabled=1" to broctl.cfg.
+#    The plugin is off by default. To enable it, add "setcap.enabled=1" to zeekctl.cfg.
 #
 # Dave Crawford (@pingtrip)
 
-import BroControl.plugin
+import ZeekControl.plugin
 
-class setcap(BroControl.plugin.Plugin):
+class setcap(ZeekControl.plugin.Plugin):
     def __init__(self):
         super(setcap, self).__init__(apiversion=1)
 
@@ -35,12 +35,12 @@ class setcap(BroControl.plugin.Plugin):
     def cmd_install_post(self):
         self.message("setcap plugin: executing setcap on each node:")
         uniq_nodes = {}
-				 
+                                                                                                                                                 
         for n in self.nodes():
             if n.type == 'standalone' or n.type == 'worker':
                 uniq_nodes[n.host] = n
-        
+                                     
         cmds = [(n, self.getOption('command')) for n in uniq_nodes.values()]
 
         for (n, success, output) in self.executeParallel(cmds):
-	    self.message("{0} - Executing setcap: {1}".format(n.host, 'SUCCESS' if success else 'FAIL: ' + output[0]))
+            self.message("{0} - Executing setcap: {1}".format(n.host, 'SUCCESS' if success else 'FAIL: ' + output[0]))
